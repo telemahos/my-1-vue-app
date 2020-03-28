@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+
+<body>
+   <div id='app' :title="hover">
+      {{ message }}
+      <ul v-if="showCars">
+         <li v-for="(mobj, index) in car">
+            {{ ++index }}
+            Marke: {{ mobj.mycar }} 
+            Model: {{ mobj.myModel }}
+            Top Speed: {{ mobj.maxSpeed }}
+         </li>
+      </ul>
+      <button  @click="shide()">Click Me!</button>
+      
+      <hr>
+      
+      <input type="text" name="" id="" v-model="bindMessage">
+      <p>{{ bindMessage }}</p>
+      
+      <hr>
+      
+      <todo-list></todo-list>
+   </div>
+   
+   <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+   <script src='index.js'></script>
+</body>
+</html>
+
