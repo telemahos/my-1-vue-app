@@ -1,5 +1,5 @@
-Vue.component('todo-list', {
-   template: '<li>this is a todo list</li>',
+Vue.component("todo-list", {
+   template: "<li>This is a list item</li>",
 });
 
 var app = new Vue({
@@ -7,7 +7,7 @@ var app = new Vue({
    data: {
       car: [
          {
-          mycar: 'Tesla',
+          mycar: 'Tesla233',
           myModel: "Model Y",
           maxSpeed: "246 km/h"
          },
