@@ -267,7 +267,7 @@ Another option for conditionally displaying an element is the ***v-show directiv
 <h1 v-show="ok">Hello!</h1>
 ```
 The difference is that an element with v-show will always be rendered and remain in the DOM; v-show only toggles the display CSS property of the element.
-> Note that ***v-show doesn’t support the <template> element***, nor does it work with v-else.
+> Note that ***v-show doesn’t support the template element***, nor does it work with v-else.
 
 ### v-if vs v-show
 ***v-if*** is “real” conditional rendering because it ensures that event listeners and child components inside the conditional block are properly destroyed and re-created during toggles.
