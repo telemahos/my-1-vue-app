@@ -1,4 +1,4 @@
-<h1 style="text-align: center;"> VUE Documentation </h1>
+###  VUE Documentation 
 
 - String Interpolation ist data Binding bei benutyung der Mustache Syntax:
    <span>The Message ***{{ msg }}***</span>
@@ -46,6 +46,7 @@
   
 ### Computed vs Watched Property
 -  Vue does provide a more generic way to observe and react to data changes on a Vue instance: ***watch properties***. However, it is often a better idea to use a ***computed property*** rather than an imperative watch callback.
+  
 ```
 <div id="demo">{{ fullName }}</div>
 
@@ -65,7 +66,10 @@ var vm = new Vue({
     }
   }
 ```
-vs:
+
+vs
+
+
 ```
 var vm = new Vue({
   el: '#demo',
@@ -102,17 +106,20 @@ computed: {
 ```
 - Now when you run vm.fullName = 'John Doe', the setter will be invoked and vm.firstName and vm.lastName will be updated accordingly.
 
-
+---
 ## Class and Style Bindings
 
 ### Binding HTML Classes
 - Vue provides special enhancements when ***v-bind*** is used with ***class and style***. In addition to strings, the expressions can also evaluate to ***objects or arrays***.
+  
 ```
 <div
   class="static"
   v-bind:class="{ active: isActive, 'text-danger': hasError }"
 ></div>
+```
 
+```
 data: {
   isActive: true,
   hasError: false
@@ -120,7 +127,11 @@ data: {
 ==>
 <div class="static active"></div>
 ```
+
+
 - The bound object doesn’t have to be inline:
+
+
 ```
 <div v-bind:class="classObject"></div>
 
@@ -131,7 +142,11 @@ data: {
   }
 }
 ```
+
+
 - We can also bind to a ***computed property*** that returns an object.
+
+
 ```
 <div v-bind:class="classObject"></div>
 
@@ -203,4 +218,152 @@ data: {
   activeColor: 'red',
   fontSize: 30
 }
+```
+---
+## Conditional Rendering 
+ ### v-if and v-else
+
+- The directive ***v-if*** is used to conditionally render a block. The block will only be rendered if the ***directive’s expression returns a truthy*** value.
+- It is also possible to add an “else block” with v-else:
+  
+```
+<h1 v-if="awesome">Vue is awesome!</h1>
+<h1 v-else>Oh no 😢</h1>
+```
+
+### Conditional Groups with v-if on <template>
+- Because v-if is a directive, it has to be attached to a single element. But what if we want to toggle more than one element? In this case we can use v-if on a <template> element, which serves as an invisible wrapper. The final rendered result will not include the <template> element.
+
+```
+<template v-if="ok">
+  <h1>Title</h1>
+  <p>Paragraph 1</p>
+  <p>Paragraph 2</p>
+</template>
+```
+
+### v-else-if
+- The ***v-else-if***, as the name suggests, serves as an “else if block” for v-if. It can also be chained multiple times:
+
+```
+<div v-if="type === 'A'">
+  A
+</div>
+<div v-else-if="type === 'B'">
+  B
+</div>
+<div v-else-if="type === 'C'">
+  C
+</div>
+<div v-else>
+  Not A/B/C
+</div>
+```
+Similar to v-else, a v-else-if element must immediately follow a v-if or a v-else-if element.
+
+### v-show
+Another option for conditionally displaying an element is the ***v-show directive***. The usage is largely the same:
+```
+<h1 v-show="ok">Hello!</h1>
+```
+The difference is that an element with v-show will always be rendered and remain in the DOM; v-show only toggles the display CSS property of the element.
+> Note that ***v-show doesn’t support the <template> element***, nor does it work with v-else.
+
+### v-if vs v-show
+***v-if*** is “real” conditional rendering because it ensures that event listeners and child components inside the conditional block are properly destroyed and re-created during toggles.
+
+In comparison, ***v-show*** is much simpler - the element is always rendered regardless of initial condition, with CSS-based toggling.
+
+Generally speaking, **v-if** has higher toggle costs while ***v-show*** has higher initial render costs. So prefer v-show if you need to toggle something very often, and prefer v-if if the condition is unlikely to change at runtime.
+
+### v-if with v-for
+> Using ***v-if and v-for*** together is not recommended. When used together with v-if, v-for has a higher priority than v-if
+
+
+## List Rendering
+### Mapping an Array to Elements with v-for
+We can use the v-for directive to render a list of items based on an array. The v-for directive requires a special syntax in the form of item in items, where items is the source data array and item is an alias for the array element being iterated on:
+
+```
+<ul id="example-1">
+  <li v-for="item in items" :key="item.message">
+    {{ item.message }}
+  </li>
+</ul>
+```
+
+```
+var example1 = new Vue({
+  el: '#example-1',
+  data: {
+    items: [
+      { message: 'Foo' },
+      { message: 'Bar' }
+    ]
+  }
+})
+```
+
+Inside ***v-for*** blocks we have full access to ***parent scope*** properties. v-for also supports an optional second argument for the index of the current item.
+```
+<ul id="example-2">
+  <li v-for="(item, index) in items">
+    {{ parentMessage }} - {{ index }} - {{ item.message }}
+  </li>
+</ul>
+```
+
+```
+var example2 = new Vue({
+  el: '#example-2',
+  data: {
+    parentMessage: 'Parent',
+    items: [
+      { message: 'Foo' },
+      { message: 'Bar' }
+    ]
+  }
+})
+```
+
+You can also use ***of*** as the delimiter instead of in, so that it is closer to JavaScript’s syntax for iterators:
+```
+<div v-for="item of items"></div>
+```
+
+### v-for with an Object
+You can also use v-for to iterate through the ***properties of an object***.
+```
+<ul id="v-for-object" class="demo">
+  <li v-for="value in object">
+    {{ value }}
+  </li>
+</ul>
+```
+
+```
+new Vue({
+  el: '#v-for-object',
+  data: {
+    object: {
+      title: 'How to do lists in Vue',
+      author: 'Jane Doe',
+      publishedAt: '2016-04-10'
+    }
+  }
+})
+```
+
+You can also provide a ***second argument*** for the property’s name (a.k.a. key):
+```
+<div v-for="(value, name) in object">
+  {{ name }}: {{ value }}
+</div>
+```
+
+And another for the index:
+```
+<div v-for="(value, name, index) in object">
+  {{ index }}. {{ name }}: {{ value }}
+</div>
 ```

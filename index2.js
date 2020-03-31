@@ -45,11 +45,26 @@ var app3 = new Vue({
          name: "Kostas",
          lastname: "kakoulis",
       },
+      testt: "a testing string",
       emptyStr: "",
+      passType: false,
+      username: true,
+      parentMsg: "parent",
+      shopList: [
+         { name: 'sugar' },
+         { name: 'coffee' },
+         { name: 'tee' },
+      ],
    },
    computed: {
       thefullname() {
          return this.person.name + " " + this.person.lastname;
-      }
-   }
+      },
+   },
+   methods: {
+      toggleTemp() {
+         this.passType = !this.passType;
+         console.log('test toggleTemp function' + this.passType);
+      },
+   },
 });

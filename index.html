@@ -75,9 +75,36 @@
       
       <hr>
       
+      <h4>V-If</h4>
+      <template v-if="passType === username">
+         <div>
+            <label for="username">Username</label>
+            <input type="password" placeholder="Username">
+            <button @click='toggleTemp'>Toggle Login Option</button>
+         </div>
+      </template>
+      <template v-else>
+         <div>
+            <label for="email">Email</label>
+            <input type="text" placeholder="email">
+            <button @click='toggleTemp'>Toggle Login Option</button>
+         </div>
+      </template>
+      
+      <hr>
+      <h4>V-FOR</h4>
+      <div v-for="(item, index) in shopList" :key="index">
+         {{ ++index }}. {{ item.name }} : {{ parentMsg }} : {{ testt }}
+      </div> 
+      <hr>
+      <div v-for="item of shopList">
+         {{ item.name }}
+      </div>
       
    
    </div>
+   
+   <hr>
    
    
    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
