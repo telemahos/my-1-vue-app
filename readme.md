@@ -102,3 +102,105 @@ computed: {
 ```
 - Now when you run vm.fullName = 'John Doe', the setter will be invoked and vm.firstName and vm.lastName will be updated accordingly.
 
+
+## Class and Style Bindings
+
+### Binding HTML Classes
+- Vue provides special enhancements when ***v-bind*** is used with ***class and style***. In addition to strings, the expressions can also evaluate to ***objects or arrays***.
+```
+<div
+  class="static"
+  v-bind:class="{ active: isActive, 'text-danger': hasError }"
+></div>
+
+data: {
+  isActive: true,
+  hasError: false
+}
+==>
+<div class="static active"></div>
+```
+- The bound object doesn’t have to be inline:
+```
+<div v-bind:class="classObject"></div>
+
+data: {
+  classObject: {
+    active: true,
+    'text-danger': false
+  }
+}
+```
+- We can also bind to a ***computed property*** that returns an object.
+```
+<div v-bind:class="classObject"></div>
+
+data: {
+  isActive: true,
+  error: null
+},
+computed: {
+  classObject: function () {
+    return {
+      active: this.isActive && !this.error,
+      'text-danger': this.error && this.error.type === 'fatal'
+    }
+  }
+}
+```
+
+### Array Syntax
+- We can pass an ***array*** to v-bind:class to apply a list of classes:
+
+```
+<div v-bind:class="[activeClass, errorClass]"></div>
+
+data: {
+  activeClass: 'active',
+  errorClass: 'text-danger'
+}
+```
+
+- If you would like to also ***toggle a class*** in the list conditionally, you can do it with a ***ternary expression***:
+
+```
+<div v-bind:class="[isActive ? activeClass : '', errorClass]"></div>
+```
+
+This will always apply errorClass, but will only apply activeClass when isActive is truthy.
+
+- However, this can be a bit verbose if you have multiple conditional classes. That’s why it’s also possible to use the object syntax inside array syntax:
+
+```
+<div v-bind:class="[{ active: isActive }, errorClass]"></div>
+```
+
+### With Components
+
+- When you use the class attribute on a custom component, those classes will be added to the component’s root element. Existing classes on this element will not be overwritten.
+
+```
+Vue.component('my-component', {
+  template: '<p class="foo bar">Hi</p>'
+})
+
+<my-component class="baz boo"></my-component>
+
+```
+
+The rendered HTML will be:
+```
+<p class="foo bar baz boo">Hi</p>
+```
+
+### Binding Inline Styles
+- The object syntax for v-bind:style is pretty straightforward - it looks almost like CSS, except it’s a JavaScript object. You can use either camelCase or kebab-case (use quotes with kebab-case) for the CSS property names:
+
+```
+<div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+
+data: {
+  activeColor: 'red',
+  fontSize: 30
+}
+```

@@ -45,6 +45,7 @@ var app3 = new Vue({
          name: "Kostas",
          lastname: "kakoulis",
       },
+      emptyStr: "",
    },
    computed: {
       thefullname() {

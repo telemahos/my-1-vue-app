@@ -35,10 +35,11 @@
                <todo-list></todo-list>
             </ul>
             
-            <hr>
          </div>
       </div>
    </div>
+   
+   <hr>
    
    <div id="app2" class="container">
       <h3>App2</h3>
@@ -60,15 +61,21 @@
       
    </div>
    
+   <hr>
+   
    <div id="app3" class="container">
       <h3>App3</h3>
       <label for="name">name:</label>
-      <input type="text" id="name" value="" v-model="person.name">
+      <input type="text" id="name" v-model="person.name" value="emptyStr">
       <label for="lastname">lastname</label>
-      <input type="text" id="lastname" v-model="person.lastname" value="">
+      <input type="text" id="lastname"  value="person.name">
       
       <p>VorName: {{ person.name }} </p>
       <p>Fullname: {{ thefullname }}</p>
+      
+      <hr>
+      
+      
    
    </div>
    
