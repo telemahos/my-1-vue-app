@@ -41,13 +41,37 @@
    </div>
    
    <div id="app2" class="container">
+      <h3>App2</h3>
       <ol>
          <my-kidz
             v-for="(kid, index) in kidz" :key="index"
             :pkidz="kid"
          ></my-kidz>
       </ol>
+      <p>Using Mustaches: {{ rawHtml }}</p>
+      <p>Using v-html dirctive:<span v-html="rawHtml"></span></p>
+      
+      <hr>
+      <a v-bind:href="href">Link to Google</a>
+      <hr>
+      
+      <p>this is the message {{ revMsg }}</p>
+      <p>this is a reserved message {{  resMsgFnc2 }}</p>
+      
    </div>
+   
+   <div id="app3" class="container">
+      <h3>App3</h3>
+      <label for="name">name:</label>
+      <input type="text" id="name" value="" v-model="person.name">
+      <label for="lastname">lastname</label>
+      <input type="text" id="lastname" v-model="person.lastname" value="">
+      
+      <p>VorName: {{ person.name }} </p>
+      <p>Fullname: {{ thefullname }}</p>
+   
+   </div>
+   
    
    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
   <!-- <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script> -->
