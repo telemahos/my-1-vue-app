@@ -231,8 +231,8 @@ data: {
 <h1 v-else>Oh no 😢</h1>
 ```
 
-### Conditional Groups with v-if on <template>
-- Because v-if is a directive, it has to be attached to a single element. But what if we want to toggle more than one element? In this case we can use v-if on a <template> element, which serves as an invisible wrapper. The final rendered result will not include the <template> element.
+### Conditional Groups with v-if on template
+Because v-if is a directive, it has to be attached to a single element. But what if we want to toggle more than one element? In this case we can use v-if on a ***template element***, which serves as an invisible wrapper. The final rendered result will not include the ***template element***.
 
 ```
 <template v-if="ok">
